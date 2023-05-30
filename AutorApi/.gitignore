@@ -5,3 +5,4 @@ Homestead.yaml
 .env
 .phpunit.result.cache
 ./../.idea
+database/database.sqlite
