@@ -2,10 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Autor;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class AutorSeeder extends Seeder
 {
+
+
     /**
      * Run the database seeds.
      *
@@ -13,8 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call([
-             AutorSeeder::class
-         ]);
+        Autor::factory()
+            ->count(50)
+            ->create();
     }
 }

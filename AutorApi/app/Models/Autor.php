@@ -9,6 +9,7 @@ class Autor extends Model
 {
     use HasFactory;
 
+    protected $table = 'autores';
     /**
      * The attributes that are mass assignable.
      *
