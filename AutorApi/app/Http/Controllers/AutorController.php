@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Autor;
+use App\Traits\ApiResponder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 class AutorController extends BaseController
 {
 
+    use ApiResponder;
+
     /**
      * Lista de autores
-     * @return void
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
+        $autores = Autor::all();
 
+        return $this->successResponde($autores);
     }
 
     /**

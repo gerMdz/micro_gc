@@ -13,12 +13,12 @@
 |
 */
 
-use App\Http\Controllers\AutorController;
 
-$router->get('/autores', [AutorController::class, 'index']);
-$router->post('/autores', [AutorController::class, 'store']);
-$router->get('/autores/{autor}', [AutorController::class, 'show']);
-$router->put('/autores/{autor}', [AutorController::class, 'update']);
-$router->patch('/autores/{autor}', [AutorController::class, 'update']);
-$router->delete('/autores/{autor}', [AutorController::class, 'destroy']);
+
+$router->get('/autores', 'AutorController@index');
+$router->post('/autores', 'AutorController@store');
+$router->get('/autores/{autor}', 'AutorController@show');
+$router->put('/autores/{autor}', 'AutorController@update');
+$router->patch('/autores/{autor}', 'AutorController@update');
+$router->delete('/autores/{autor}', 'AutorController@destroy');
 
