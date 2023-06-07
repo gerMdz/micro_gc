@@ -90,12 +90,15 @@ class AutorController extends BaseController
 
     /**
      * Remueve un Autor
-     * @param Autor $autor
-     * @return void
+     * @param int $autor
+     * @return JsonResponse
      */
-    public function destroy(Autor $autor)
+    public function destroy(int $autor): JsonResponse
     {
+        $autor = Autor::findOrFail($autor);
+        $autor->delete();
 
+        return $this->successResponde($autor);
     }
 
 }
