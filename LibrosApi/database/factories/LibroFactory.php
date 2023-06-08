@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Libro;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserFactory extends Factory
+class LibroFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Libro::class;
 
     /**
      * Define the model's default state.
@@ -22,8 +22,10 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
+            'titulo' => $this->faker->sentence(3, true),
+            'descripcion' => $this->faker->sentence(6, true),
+            'precio' => $this->faker->numberBetween(5, 25) * 1000,
+            'autor_id' => $this->faker->numberBetween(1, 50),
         ];
     }
 }
