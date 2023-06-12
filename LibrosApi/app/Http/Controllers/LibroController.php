@@ -33,57 +33,61 @@ class LibroController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'nombre' => 'required|max:255',
-            'genero' => 'required|max:255|in:masculino,femenino',
-            'pais' => 'required|max:255',
+            'titulo' => 'required|max:255',
+            'descripcion' => 'required|max:255',
+            'precio' => 'required|min:1',
+            'autor_id' => 'required|min:1',
         ];
 
         $this->validate($request, $rules);
 
-        $Libro = Libro::create($request->all());
+        $libro = Libro::create($request->all());
 
-        return $this->successResponde($Libro, Response::HTTP_CREATED);
+        return $this->successResponde($libro, Response::HTTP_CREATED);
 
     }
 
     /**
      * Muestra los datos de un Libro
-     * @param string $Libro
+     * @param string $libro
      * @return JsonResponse
      */
-    public function show(string $Libro): JsonResponse
+    public function show(string $libro): JsonResponse
     {
-        $Libro = Libro::findOrFail($Libro);
-        return $this->successResponde($Libro);
+        $libro = Libro::findOrFail($libro);
+        return $this->successResponde($libro);
     }
 
     /**
      * Actualiza una instancia de Libro
      * @param Request $request
-     * @param Libro $Libro
+     * @param string $libro
      * @return JsonResponse
+     * @throws ValidationException
      */
-    public function update(Request $request, string $Libro)
+    public function update(Request $request, string $libro)
     {
         $rules = [
-            'nombre' => 'max:255',
-            'genero' => 'max:255|in:masculino,femenino',
-            'pais' => 'max:255',
+            'titulo' => 'max:255',
+            'descripcion' => 'max:255',
+            'precio' => 'min:1',
+            'autor_id' => 'min:1',
         ];
 
         $this->validate($request, $rules);
 
-        $Libro = Libro::findOrFail($Libro);
 
-        $Libro->fill($request->all());
+        $libro = Libro::findOrFail($libro);
 
-        if($Libro->isClean()){
+        $libro->fill($request->all());
+
+        if ($libro->isClean()) {
             return $this->errorResponde('Por lo menos un valor debe cambiar', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $Libro->save();
+        $libro->save();
 
-        return $this->successResponde($Libro);
+        return $this->successResponde($libro);
     }
 
     /**
