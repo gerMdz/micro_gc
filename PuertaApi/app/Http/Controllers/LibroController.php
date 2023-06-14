@@ -8,20 +8,22 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use Laravel\Lumen\Routing\Controller as BaseController;
 
-class LibroController extends Controller
+class LibroController extends BaseController
 {
+
     use ApiResponder;
 
     /**
-     * Lista de libros
+     * Lista de Libroes
      * @return JsonResponse
      */
     public function index(): JsonResponse
     {
-        $libros = Libro::all();
+        $libro = Libro::all();
 
-        return $this->successResponde($libros);
+        return $this->successResponde($libro);
     }
 
     /**
@@ -33,10 +35,9 @@ class LibroController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'titulo' => 'required|max:255',
-            'descripcion' => 'required|max:255',
-            'precio' => 'required|min:1',
-            'autor_id' => 'required|min:1',
+            'nombre' => 'required|max:255',
+            'genero' => 'required|max:255|in:masculino,femenino',
+            'pais' => 'required|max:255',
         ];
 
         $this->validate($request, $rules);
@@ -61,27 +62,24 @@ class LibroController extends Controller
     /**
      * Actualiza una instancia de Libro
      * @param Request $request
-     * @param string $libro
+     * @param Libro $libro
      * @return JsonResponse
-     * @throws ValidationException
      */
     public function update(Request $request, string $libro)
     {
         $rules = [
-            'titulo' => 'max:255',
-            'descripcion' => 'max:255',
-            'precio' => 'min:1',
-            'autor_id' => 'min:1',
+            'nombre' => 'max:255',
+            'genero' => 'max:255|in:masculino,femenino',
+            'pais' => 'max:255',
         ];
 
         $this->validate($request, $rules);
-
 
         $libro = Libro::findOrFail($libro);
 
         $libro->fill($request->all());
 
-        if ($libro->isClean()) {
+        if($libro->isClean()){
             return $this->errorResponde('Por lo menos un valor debe cambiar', Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
@@ -102,4 +100,5 @@ class LibroController extends Controller
 
         return $this->successResponde($libro);
     }
+
 }

@@ -22,7 +22,8 @@ Habilitar en bootstrap/app.php sacando los comentarios de las siguientes líneas
 ```
 
 Generar APP_KEY
+[Unit-Conversion](http://www.unit-conversion.info/texttools/random-string-generator/)
 
 ##### Next
-[Cap 31](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/12177272#questions/5669231)
+[Cap 38](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/12177304#questions/5669231)
 
