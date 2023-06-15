@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Libro;
+use App\Services\LibroService;
 use App\Traits\ApiResponder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,19 @@ class LibroController extends BaseController
 {
 
     use ApiResponder;
+
+    /**
+     * @var LibroService
+     */
+    private $libroService;
+
+    /**
+     * @param LibroService $libroService
+     */
+    public function __construct(LibroService $libroService)
+    {
+        $this->libroService = $libroService;
+    }
 
     /**
      * Lista de Libroes

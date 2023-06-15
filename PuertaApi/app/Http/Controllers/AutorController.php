@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Autor;
+use App\Services\AutorService;
 use App\Traits\ApiResponder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,19 @@ class AutorController extends Controller
 {
 
     use ApiResponder;
+
+    /**
+     * @var AutorService
+     */
+    private $autorService;
+
+    /**
+     * @param AutorService $autorService
+     */
+    public function __construct(AutorService $autorService)
+    {
+        $this->autorService = $autorService;
+    }
 
     public function index(): JsonResponse
     {
