@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Autor;
 use App\Traits\ConsumerServiciosExternos;
 
 class AutorService
@@ -11,11 +12,42 @@ class AutorService
     /**
      * @var string
      */
-    public  $baseUri;
+    public $baseUri;
 
     public function __construct()
     {
         $this->baseUri = config('services.autores.base_uri');
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutores(): string
+    {
+        return $this->realizarRequest('GET', '/autores');
+    }
+
+    /**
+     * @param $request
+     * @return string
+     */
+    public function altaAutor($request): string
+    {
+        return $this->realizarRequest('GET', '/autores', $request);
+    }
+
+    /**
+     * @param $autor
+     * @return string
+     */
+    public function getAutor($autor): string
+    {
+        return $this->realizarRequest('GET', "/autores/{$autor}");
+    }
+
+    public function modificaAutor(array $all, int $autor): string
+    {
+        return $this->realizarRequest('PUT', "/autores/{$autor}", $all);
     }
 
 

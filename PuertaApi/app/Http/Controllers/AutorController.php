@@ -30,30 +30,18 @@ class AutorController extends Controller
 
     public function index(): JsonResponse
     {
-        $autores = Autor::all();
 
-        return $this->successResponde($autores);
+        return $this->successResponde($this->autorService->getAutores());
     }
 
     /**
      * Crea una instancia de Autor
      * @param Request $request
      * @return Response
-     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
-        $rules = [
-            'nombre' => 'required|max:255',
-            'genero' => 'required|max:255|in:masculino,femenino',
-            'pais' => 'required|max:255',
-        ];
-
-        $this->validate($request, $rules);
-
-        $autor = Autor::create($request->all());
-
-        return $this->successResponde($autor, Response::HTTP_CREATED);
+        return $this->successResponde($this->autorService->altaAutor($request->all(), Response::HTTP_CREATED));
 
     }
 
@@ -64,8 +52,7 @@ class AutorController extends Controller
      */
     public function show(string $autor): Response
     {
-        $autor = Autor::findOrFail($autor);
-        return $this->successResponde($autor);
+        return $this->successResponde($this->autorService->getAutor($autor));
     }
 
     /**
@@ -76,25 +63,7 @@ class AutorController extends Controller
      */
     public function update(Request $request, string $autor)
     {
-        $rules = [
-            'nombre' => 'max:255',
-            'genero' => 'max:255|in:masculino,femenino',
-            'pais' => 'max:255',
-        ];
-
-        $this->validate($request, $rules);
-
-        $autor = Autor::findOrFail($autor);
-
-        $autor->fill($request->all());
-
-        if($autor->isClean()){
-            return $this->errorResponde('Por lo menos un valor debe cambiar', Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $autor->save();
-
-        return $this->successResponde($autor);
+        return $this->successResponde($this->autorService->modificaAutor($request->all(),$autor));
     }
 
     /**
