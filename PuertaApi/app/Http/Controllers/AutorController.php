@@ -28,7 +28,7 @@ class AutorController extends Controller
         $this->autorService = $autorService;
     }
 
-    public function index(): JsonResponse
+    public function index()
     {
 
         return $this->successResponde($this->autorService->getAutores());
@@ -73,10 +73,7 @@ class AutorController extends Controller
      */
     public function destroy(int $autor): Response
     {
-        $autor = Autor::findOrFail($autor);
-        $autor->delete();
-
-        return $this->successResponde($autor);
+        return $this->successResponde($this->autorService->borraAutor($autor));
     }
 
 }

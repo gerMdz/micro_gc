@@ -33,7 +33,7 @@ class AutorService
      */
     public function altaAutor($request): string
     {
-        return $this->realizarRequest('GET', '/autores', $request);
+        return $this->realizarRequest('POST', '/autores', $request);
     }
 
     /**
@@ -43,6 +43,11 @@ class AutorService
     public function getAutor($autor): string
     {
         return $this->realizarRequest('GET', "/autores/{$autor}");
+    }
+
+    public function borraAutor($autor): string
+    {
+        return $this->realizarRequest('DELETE', "/autores/{$autor}");
     }
 
     public function modificaAutor(array $all, int $autor): string

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Libro;
+use App\Services\AutorService;
 use App\Services\LibroService;
 use App\Traits\ApiResponder;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
+
 
 class LibroController extends BaseController
 {
@@ -20,99 +19,70 @@ class LibroController extends BaseController
      * @var LibroService
      */
     private $libroService;
+    /**
+     * @var AutorService
+     */
+    private $autorService;
+
 
     /**
      * @param LibroService $libroService
+     * @param AutorService $autorService
      */
-    public function __construct(LibroService $libroService)
+    public function __construct(LibroService $libroService, AutorService $autorService)
     {
+
         $this->libroService = $libroService;
+        $this->autorService = $autorService;
     }
 
-    /**
-     * Lista de Libroes
-     * @return JsonResponse
-     */
-    public function index(): JsonResponse
+    public function index()
     {
-        $libro = Libro::all();
 
-        return $this->successResponde($libro);
+        return $this->successResponde($this->libroService->getLibros());
     }
 
     /**
      * Crea una instancia de Libro
      * @param Request $request
-     * @return JsonResponse
-     * @throws ValidationException
+     * @return Response
      */
     public function store(Request $request)
     {
-        $rules = [
-            'nombre' => 'required|max:255',
-            'genero' => 'required|max:255|in:masculino,femenino',
-            'pais' => 'required|max:255',
-        ];
+        $this->autorService->getAutor($request->autor_id);
 
-        $this->validate($request, $rules);
-
-        $libro = Libro::create($request->all());
-
-        return $this->successResponde($libro, Response::HTTP_CREATED);
-
+        return $this->successResponde($this->libroService->altaLibro($request->all(), Response::HTTP_CREATED));
     }
 
     /**
      * Muestra los datos de un Libro
      * @param string $libro
-     * @return JsonResponse
+     * @return Response
      */
-    public function show(string $libro): JsonResponse
+    public function show(string $libro): Response
     {
-        $libro = Libro::findOrFail($libro);
-        return $this->successResponde($libro);
+        return $this->successResponde($this->libroService->getLibro($libro));
     }
 
     /**
      * Actualiza una instancia de Libro
      * @param Request $request
-     * @param Libro $libro
-     * @return JsonResponse
+     * @param string $libro
+     * @return Response
      */
     public function update(Request $request, string $libro)
     {
-        $rules = [
-            'nombre' => 'max:255',
-            'genero' => 'max:255|in:masculino,femenino',
-            'pais' => 'max:255',
-        ];
-
-        $this->validate($request, $rules);
-
-        $libro = Libro::findOrFail($libro);
-
-        $libro->fill($request->all());
-
-        if($libro->isClean()){
-            return $this->errorResponde('Por lo menos un valor debe cambiar', Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $libro->save();
-
-        return $this->successResponde($libro);
+        return $this->successResponde($this->libroService->modificaLibro($request->all(),$libro));
     }
 
     /**
      * Remueve un Libro
      * @param int $libro
-     * @return JsonResponse
+     * @return Response
      */
-    public function destroy(int $libro): JsonResponse
+    public function destroy(int $libro): Response
     {
-        $libro = Libro::findOrFail($libro);
-        $libro->delete();
-
-        return $this->successResponde($libro);
+        return $this->successResponde($this->libroService->borraLibro($libro));
     }
 
 }
