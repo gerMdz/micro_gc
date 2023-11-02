@@ -1,3 +1,6 @@
 .idea
 /.idea
 /AutorApi/database/database.sqlite
+/PuertaApi/storage/oauth-private.key
+/PuertaApi/storage/oauth-public.key
+/PuertaApi/storage/*.key

@@ -24,6 +24,25 @@ Habilitar en bootstrap/app.php sacando los comentarios de las siguientes líneas
 Generar APP_KEY
 [Unit-Conversion](http://www.unit-conversion.info/texttools/random-string-generator/)
 
+Agregar passport
+
+```bash
+composer require dusterio/lumen-passport
+```
+
+
+Habilitar en bootstrap/app.php sacando los comentarios de las siguientes líneas
+
+```php
+// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
+// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Laravel\Passport\PassportServiceProvider::class);
+$app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
+```
+
+
+
 ##### Next
-[Cap 48](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/12177330#overview)
+[Cap 50](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/12177334#overview)
 
