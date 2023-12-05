@@ -40,9 +40,25 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 ```
+Tuve que modificar 2 métodos en los vendors. Muy mala práctica.
 
+primero 
+```bash
+composer require laminas/laminas-diactoros
+```
+
+luego en el vendor cambiar 2 líneas
+vendor/dusterio/lumen-passport/src/Http/Controllers/AccessTokenController.php
+
+> -- use Zend\Diactoros\Response as Psr7Response;
+>
+> ++ use Laminas\Diactoros\Response as Psr7Response;
+> 
+> -- $tokenId = $this->jwt->parse($payload['access_token'])->getClaim('jti');
+> 
+> ++ $tokenId = $this->jwt->parse($payload['access_token'])->claims()->get('jti');
 
 
 ##### Next
-[Cap 50](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/12177334#overview)
+[Cap 52](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/12177338#questions/15098794)
 

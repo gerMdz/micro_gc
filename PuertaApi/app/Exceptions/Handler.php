@@ -82,10 +82,10 @@ class Handler extends ExceptionHandler
         }
         if ($e instanceof AuthenticationException) {
 
-            $code = $e->getCode();
+//            $code = $e->getCode();
             $mensaje = $e->getMessage();
 
-            return $this->errorResponde($mensaje, $code);
+            return $this->errorResponde($mensaje, Response::HTTP_UNAUTHORIZED);
         }
 
 
