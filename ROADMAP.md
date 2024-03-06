@@ -60,5 +60,5 @@ vendor/dusterio/lumen-passport/src/Http/Controllers/AccessTokenController.php
 
 
 ##### Next
-[Cap 52](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/12177338#questions/15098794)
+[Cap 56](https://www.udemy.com/course/microservicios-con-lumen-una-arquitectura-orientada-a-servicios/learn/lecture/16878046#questions/15098794)
 

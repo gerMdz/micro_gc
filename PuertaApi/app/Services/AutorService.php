@@ -14,9 +14,16 @@ class AutorService
      */
     public $baseUri;
 
+    /**
+     * @var string
+     */
+    private $secret;
+
+
     public function __construct()
     {
         $this->baseUri = config('services.autores.base_uri');
+        $this->secret = config('services.autores.secret');
     }
 
     /**

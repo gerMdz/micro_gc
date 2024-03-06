@@ -12,10 +12,15 @@ class LibroService
      * @var string
      */
     public  $baseUri;
+    /**
+     * @var string
+     */
+    private $secret;
 
     public function __construct()
     {
         $this->baseUri = config('services.libros.base_uri');
+        $this->secret = config('services.libros.secret');
     }
 
     /**

@@ -12,6 +12,10 @@ trait ConsumerServiciosExternos
                'base_uri' => $this->baseUri,
            ]);
 
+           if(isset($this->secret)) {
+               $headers['Authorization'] = $this->secret;
+           }
+
            $response = $client->request($metodo, $requestUrl, [
                'form_params' => $formParams,
                'headers' => $headers
