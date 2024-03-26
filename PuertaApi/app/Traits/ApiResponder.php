@@ -38,4 +38,9 @@ trait ApiResponder
     {
         return response( $mensaje,  $code)->header('Content-Type', 'application/json');
     }
+
+    public function validResponde($data, int $code = Response::HTTP_OK): JsonResponse
+    {
+        return response()->json(['data' => $data], $code);
+    }
 }
