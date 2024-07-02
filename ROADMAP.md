@@ -47,7 +47,7 @@ primero
 composer require laminas/laminas-diactoros
 ```
 
-luego en el vendor cambiar 2 líneas
+Luego en el vendor cambiar 2 líneas
 vendor/dusterio/lumen-passport/src/Http/Controllers/AccessTokenController.php
 
 > -- use Zend\Diactoros\Response as Psr7Response;

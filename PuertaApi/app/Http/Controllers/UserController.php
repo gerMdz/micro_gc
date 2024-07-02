@@ -110,4 +110,10 @@ class UserController extends Controller
 
         return $this->successResponde($user);
     }
+
+    public function me(Request $request)
+    {
+        return $this->validResponde($request->user());
+    }
+
 }
